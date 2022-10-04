@@ -15,13 +15,13 @@ public class CoinTest {
 //            amount %= unit[i];
 //            System.out.println(unit[i] + "원 " + num + "개");
 //        }
-        System.out.println(unit[0] + "원 " + amount / unit[0] + "개");
-        amount %= unit[0];
-        System.out.println(unit[1] + "원 " + amount / unit[1] + "개");
-        amount %= unit[1];
-        System.out.println(unit[2] + "원 " + amount / unit[2] + "개");
-        amount %= unit[2];
-        System.out.println(unit[3] + "원 " + amount / unit[3] + "개");
-        amount %= unit[3];
+        System.out.println(unit[0] + "원 " + amount / unit[0] + "개" + "나머지는 : " + amount % unit[0] + "원");
+
+        System.out.println(unit[1] + "원 " + amount / unit[1] + "개" + "나머지는 : " + amount % unit[1] + "원");
+
+        System.out.println(unit[2] + "원 " + amount / unit[2] + "개" + "나머지는 : " + amount % unit[2] + "원");
+
+        System.out.println(unit[3] + "원 " + amount / unit[3] + "개" + "나머지는 : " + amount % unit[3] + "원");
+
     }
 }
