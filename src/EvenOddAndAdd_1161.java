@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class EvenOddAndAdd {
+public class EvenOddAndAdd_1161 {
     public static String EvenOdd(int n){
         if (n%2==0){
             return "짝수";
