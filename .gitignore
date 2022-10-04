@@ -27,8 +27,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/workspace.xml
-java-project-exercise.iml
+.idea/
+*.iml
