@@ -2,10 +2,10 @@ package week3_day2;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator c = new Calculator();
-        c.plus(1, 2);
-        c.minus(2, 3);
-        c.multiple(3,4);
-        c.divide(4,5);
+        Calculator c = new Calculator(2,3);
+        c.plus();
+        c.minus();
+        c.multiple();
+        c.divide();
     }
 }
