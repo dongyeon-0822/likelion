@@ -1,4 +1,4 @@
-package CodeUp_basic;
+package codeUp_basic;
 
 public class Print5_1005 {
     public static void main(String[] args) {
