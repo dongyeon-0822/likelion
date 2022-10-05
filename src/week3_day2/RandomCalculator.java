@@ -6,8 +6,7 @@ public class RandomCalculator {
     public RandomCalculator(int a) {
         this.a = a;
         RandomNumber rn = new RandomNumber();
-//        this.b = rn.getRandomNumber();
-        b = 0;
+        this.b = rn.getRandomNumber();
     }
 
     public void plus() {
