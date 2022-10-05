@@ -1,3 +1,5 @@
+package week3_day1;
+
 import java.util.Scanner;
 
 public class EvenOddAndAdd_1161 {

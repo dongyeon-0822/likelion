@@ -1,3 +1,5 @@
+package week3_day1;
+
 public class ArrayTest {
     public static void main(String[] args) {
         System.out.println("hello");
