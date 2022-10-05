@@ -1,4 +1,6 @@
-package week3_day2;
+package week3_day2.calculator_1;
+
+import week3_day2.calculator_1.Calculator;
 
 public class CalculatorTest {
     public static void main(String[] args) {

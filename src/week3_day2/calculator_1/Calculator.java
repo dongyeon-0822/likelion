@@ -1,4 +1,4 @@
-package week3_day2;
+package week3_day2.calculator_1;
 
 public class Calculator {
     private int a;
