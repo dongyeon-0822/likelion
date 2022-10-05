@@ -2,33 +2,32 @@ package week3_day2;
 
 public class RandomCalculator {
     private int a;
-    private int b;
-    public RandomCalculator(int a) {
+    private RandomNumber rn;
+    public RandomCalculator(int a, RandomNumber rn) {
         this.a = a;
-        RandomNumber rn = new RandomNumber();
-        this.b = rn.getRandomNumber();
+        this.rn = rn;
     }
 
     public void plus() {
-        System.out.println(a+b);
+        System.out.println(a+rn.getRandomNumber());
     }
     public void minus(){
-        System.out.println(a-b);
+        System.out.println(a-rn.getRandomNumber());
     }
     public void multiple(){
-        System.out.println(a*b);
+        System.out.println(a* rn.getRandomNumber());
     }
     public void divide(){
         // error 가 발생하지 않고 Infinity 가 출력됨
 //        try {
-//            System.out.println((double) a / b);
+//            System.out.println((double) a / rn.getRandomNumber());
 //        } catch (Exception e) {
 //            System.out.println("랜덤생성 숫자가 0입니다.");
 //        }
-        if (b == 0) {
+        if (rn.getRandomNumber() == 0) {
             System.out.println("랜덤생성 숫자가 0입니다.");
         } else {
-            System.out.println((double) a / b);
+            System.out.println((double) a / rn.getRandomNumber());
         }
     }
 }
