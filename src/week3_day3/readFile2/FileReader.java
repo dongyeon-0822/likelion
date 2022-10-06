@@ -11,3 +11,12 @@ public class FileReader {
         }
     }
 }
+/*
+    .\.git
+    .\.gitignore
+    .\.idea
+    .\likelion-java-exercise.iml
+    .\out
+    .\src
+    .\test.txt
+*/
