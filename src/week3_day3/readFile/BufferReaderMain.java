@@ -9,6 +9,7 @@ public class BufferReaderMain {
 //        bufferReader.read();
 //        bufferReader.readOneByte();
 //        bufferReader.readTwoByte();
-        System.out.println(bufferReader.readNByte(3));
+        bufferReader.readerDemo();
+//        System.out.println(bufferReader.readNByte(3));
     }
 }
