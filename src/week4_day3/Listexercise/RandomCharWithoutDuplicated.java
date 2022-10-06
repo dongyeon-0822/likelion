@@ -1,6 +1,4 @@
-package week4_day3.exercise1;
-
-import week3_day2.dependency_injection.RandomNumberGenerator;
+package week4_day3.Listexercise;
 
 import java.util.HashSet;
 import java.util.Set;
