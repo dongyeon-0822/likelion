@@ -1,4 +1,4 @@
-package week4_day3.Listexercise;
+package week3_day3.Listexercise;
 
 import week3_day2.dependency_injection.RandomNumberGenerator;
 

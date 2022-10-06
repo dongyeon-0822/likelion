@@ -1,4 +1,4 @@
-package week4_day3.MapExercise;
+package week3_day3.MapExercise;
 
 import java.util.HashMap;
 import java.util.Map;

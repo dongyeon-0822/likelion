@@ -1,4 +1,4 @@
-package week4_day3.Listexercise;
+package week3_day3.Listexercise;
 
 public class AlphabetGenerator implements Generator<Character>{
     @Override
