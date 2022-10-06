@@ -12,9 +12,8 @@ public class MapExerciseMain2 {
         for (char c = 'a'; c <= 'z'; c++) {
             alphabetCnt.put(c, 0);
         }
-        for (Character c : repoAddr.toCharArray()) {
+        for (Character c : repoAddr.toLowerCase().toCharArray()) {
             if (checkAlphabet.isAlphabet(c)) {
-                c = Character.toLowerCase(c);
                 alphabetCnt.put(c, alphabetCnt.get(c) + 1);
             }
         }
