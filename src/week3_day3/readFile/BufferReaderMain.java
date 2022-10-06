@@ -4,10 +4,11 @@ import java.io.IOException;
 
 public class BufferReaderMain {
     public static void main(String[] args) throws IOException {
-        BufferReader2 bufferReader2 = new BufferReader2();
-        bufferReader2.read();
+        BufferReader bufferReader = new BufferReader("test.txt");
 
-        BufferReader bufferReader = new BufferReader();
-        bufferReader.readOneByte();
+//        bufferReader.read();
+//        bufferReader.readOneByte();
+//        bufferReader.readTwoByte();
+        System.out.println(bufferReader.readNByte(3));
     }
 }
