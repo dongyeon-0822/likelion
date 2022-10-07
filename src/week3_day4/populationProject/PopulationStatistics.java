@@ -2,7 +2,9 @@ package week3_day4.populationProject;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PopulationStatistics {
     ReadData readData = new ReadData();
@@ -15,10 +17,8 @@ public class PopulationStatistics {
         return new PopulationMove(new_toSido,new_fromSido);
     }
     public PopulationMove parsingTxt(String data){
-        String[] dataInfo = data.split(",");
-        int new_fromSido = Integer.parseInt(dataInfo[0]);
-        int new_toSido = Integer.parseInt(dataInfo[1]);
-        return new PopulationMove(new_fromSido,new_toSido);
+        String[] dataInfo = data.split(", ");
+        return new PopulationMove(dataInfo[0],dataInfo[1]);
     }
 
     //한 줄씩 읽고 파싱하여 반환
@@ -44,7 +44,7 @@ public class PopulationStatistics {
     }
 
     public String fromToString(PopulationMove populationMove) {
-        return populationMove.getFromSido() + ", " + populationMove.getToSido() + "\n";
+        return populationMove.getFromSido() + "," + populationMove.getToSido() + "\n";
     }
 
     // List<String>을 지정한 파일에 write
@@ -57,6 +57,17 @@ public class PopulationStatistics {
             bufferedWriter.write(s);
         }
         bufferedWriter.close();
+    }
+    public Map<String, Integer> getMoveCntMap(List<PopulationMove> pml) {
+        Map<String, Integer> moveCntMap = new HashMap<>();
+        for (PopulationMove pm : pml) {
+            String key = pm.getFromSido() + "," + pm.getToSido();
+            if (moveCntMap.get(key) == null) {
+                moveCntMap.put(key,1);
+            }
+            moveCntMap.put(key, moveCntMap.get(key) + 1);
+        }
+        return moveCntMap;
     }
 
     public static void main(String[] args) throws IOException {
@@ -74,14 +85,21 @@ public class PopulationStatistics {
         populationStatistics.createAFile("from_to.txt");
         // 생성한 파일에 파싱한 결과 write
         populationStatistics.write(strings,"from_to.txt" );
-        */
+         */
+
 
         String filename2 = "./from_to.txt";
         PopulationStatistics populationStatistics1 = new PopulationStatistics();
         List<PopulationMove> pml = populationStatistics1.readByLine(filename2);
 
-        for (PopulationMove pm : pml) {
-            System.out.printf("전입 : %d, 전출 : %d\n", pm.getFromSido(),pm.getToSido());
+        Map<String,Integer> map = populationStatistics1.getMoveCntMap(pml);
+        String filename3 = "each_sido_cnt.txt";
+        populationStatistics1.createAFile(filename3);
+        List<String> cntResult = new ArrayList<>();
+        for (String k : map.keySet()) {
+            String s = String.format("key : %s, value : %d\n", k, map.get(k));
+            cntResult.add(s);
         }
+        populationStatistics1.write(cntResult, filename3);
     }
 }
