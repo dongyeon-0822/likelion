@@ -1,37 +1,45 @@
 package week3_day3.readFile;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class BufferReader {
     private String filename;
+    private File file;
     private FileReader reader;
     private BufferedReader bufferedReader;
+
     public BufferReader(String filename) throws FileNotFoundException {
         this.filename = filename;
+        //파일 객체 생성
+        this.file = new File(filename);
         // 파일 입력스트림 생성
         this.reader = new FileReader(filename);
         // 입력 버퍼 생성
         this.bufferedReader = new BufferedReader(reader);
     }
 
-    public void read() throws IOException { // 한줄씩 읽기
+    // 한줄씩 읽기
+    public void readLine() throws IOException {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             System.out.println(line);
         }
     }
-    public char readOneByte() throws IOException { //한 글자씩 읽기
+    //한 글자만 읽기
+    public char readOneByte() throws IOException {
         return (char)bufferedReader.read();
     }
+    //두 글자만 읽기
     public String readTwoByte() throws IOException { //두 글자씩 읽기
         String tmp ="";
         tmp += (char)bufferedReader.read();
         tmp += (char)bufferedReader.read();
         return tmp;
     }
+    // N 글자만 읽기
     public String readNByte(int n) throws IOException { //n 글자씩 읽기
         String tmp = "";
         for (int i = 0; i < n; i++) {
@@ -39,31 +47,9 @@ public class BufferReader {
         }
         return tmp;
     }
-    public String readAllByte() throws IOException { //전체 읽기
-        String tmp = Files.readString(Paths.get(filename));
+    // 파일 전체 읽기
+    public List<String> readAllByte() throws IOException { //전체 읽기
+        List<String> tmp = Files.readAllLines(Paths.get(filename));
         return tmp;
-    }
-    public void readerDemo(){
-        String s = "Hello world";
-
-        // create a StringReader
-        Reader reader = new StringReader(s);
-
-        // create a char array to read chars into
-        char cbuf[] = new char[5];
-
-        try {
-            // read characters into a portion of an array.
-            System.out.println("" + reader.read(cbuf, 0, 5));
-
-            // print cbuf
-            System.out.println(cbuf);
-
-            // close the stream
-            reader.close();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 }

@@ -6,10 +6,8 @@ public class BufferReaderMain {
     public static void main(String[] args) throws IOException {
         BufferReader bufferReader = new BufferReader("test.txt");
 
-//        bufferReader.read();
-//        bufferReader.readOneByte();
-//        bufferReader.readTwoByte();
-        bufferReader.readerDemo();
-//        System.out.println(bufferReader.readNByte(3));
+        bufferReader.readLine();
+        bufferReader.readOneByte();
+        bufferReader.readTwoByte();
     }
 }
