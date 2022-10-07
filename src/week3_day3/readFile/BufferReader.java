@@ -3,6 +3,7 @@ package week3_day3.readFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BufferReader {
@@ -22,11 +23,13 @@ public class BufferReader {
     }
 
     // 한줄씩 읽기
-    public void readLine() throws IOException {
+    public List<String> readLine() throws IOException {
+        List<String> lines = new ArrayList<>();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-            System.out.println(line);
+            lines.add(line);
         }
+        return lines;
     }
     //한 글자만 읽기
     public char readOneByte() throws IOException {
@@ -48,7 +51,7 @@ public class BufferReader {
         return tmp;
     }
     // 파일 전체 읽기
-    public List<String> readAllByte() throws IOException { //전체 읽기
+    public List<String> readAllByte(String filename) throws IOException { //전체 읽기
         List<String> tmp = Files.readAllLines(Paths.get(filename));
         return tmp;
     }
