@@ -1,3 +1,4 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/12931?language=java
 package week4_day1.algorithm;
 
 public class Problem1 {
