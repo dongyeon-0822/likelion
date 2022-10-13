@@ -1,9 +1,7 @@
 package week4_day3.algorithm;
 
-public class BubbleSort {
-    public static void main(String[] args) {
-        int[] arr = new int[]{7,10,5,2,24};
-
+public class SelectionSort {
+    public int[] insertionSort(int[] arr){
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = i + 1; j < arr.length; j++) {
                 if (arr[i] > arr[j]) {
@@ -13,7 +11,15 @@ public class BubbleSort {
                 }
             }
         }
-        for (int i : arr) {
+        return arr;
+    }
+    public static void main(String[] args) {
+        int[] arr = new int[]{7,10,5,2,24};
+        SelectionSort selectionSort = new SelectionSort();
+
+        int[] sortedArr = selectionSort.insertionSort(arr);
+
+        for (int i : sortedArr) {
             System.out.println(i);
         }
     }
