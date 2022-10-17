@@ -2,21 +2,16 @@ package week4_day4.algorithm;
 
 public class RecursiveInsertionSort {
     // 서브 어레이 `arr[i…n]`에 삽입 어레이을 수행하는 재귀 함수
-    public static void recursiveInsertionSort(int[] arr, int i, int n)
+    public void recursiveInsertionSort(int[] arr, int i, int n)
     {
         int value = arr[i];
         int j = i - 1;
-
         while (j >= 0 && arr[j] > value)
         {
             arr[j+1] = arr[j];
             j--;
         }
         arr[j+1] = value;
-
-        // 서브 어레이 `arr[j…i-1]`이
-        // 한 위치만큼 오른쪽, 즉 `arr[j+1…i]`
-
         if (i + 1 <= n) {
             recursiveInsertionSort(arr, i + 1, n);
         }
