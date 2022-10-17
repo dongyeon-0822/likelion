@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class RightTriangle {
     private char c;
+
+    public RightTriangle() {
+        this.c = '*';
+    }
     public RightTriangle(char c) {
         this.c = c;
     }
