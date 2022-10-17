@@ -3,6 +3,8 @@ package com.dbexercise;
 import com.dbexercise.domain.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     public void add() throws SQLException, ClassNotFoundException {
@@ -25,7 +27,7 @@ public class UserDao {
         ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
 
-        String selectQuery = "SELECT * from user id=?;";
+        String selectQuery = "SELECT * from user WHERE id=?;";
         PreparedStatement ps = conn.prepareStatement(selectQuery);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
@@ -39,6 +41,29 @@ public class UserDao {
         return user;
     }
 
+    public List<User> getAll() throws SQLException, ClassNotFoundException {
+        ConnectionMaker cm = new ConnectionMaker();
+        Connection conn = cm.makeConnection();
+
+        String selectQuery = "SELECT * from user WHERE;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(selectQuery);
+
+        ArrayList<User> userList = new ArrayList<User>();
+
+        while(rs.next()) {
+            User user = new User();
+            user.setId(rs.getString(1));
+            user.setName(rs.getString(2));
+            user.setPassword(rs.getString(3));
+            userList.add(user);
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+        System.out.println("SELECT All 성공");
+        return userList;
+    }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserDao userDao = new UserDao();
