@@ -1,5 +1,6 @@
-package com.dbexercise;
+package com.dbexercise.Dao;
 
+import com.dbexercise.ConnectionMaker;
 import com.dbexercise.domain.User;
 
 import java.sql.*;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    private ConnectionMaker cm = new ConnectionMaker();
+
     public void add(User user) throws SQLException, ClassNotFoundException {
         ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
