@@ -11,7 +11,7 @@ import java.sql.SQLException;
 class UserDaoTest {
     @Test
     void addAndSelect() throws SQLException, ClassNotFoundException {
-        LocalUserDao userDao = new LocalUserDao();
+        UserDao userDao = new UserDao();
         User user = new User("6", "Jully", "1234");
         userDao.add(user);
 

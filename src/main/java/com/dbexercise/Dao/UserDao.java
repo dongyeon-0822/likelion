@@ -1,6 +1,5 @@
 package com.dbexercise.Dao;
 
-import com.dbexercise.ConnectionMaker;
 import com.dbexercise.domain.User;
 
 import java.sql.*;
@@ -8,10 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private ConnectionMaker cm = new ConnectionMaker();
+    private ConnectionMaker cm;
+
+    public UserDao() {
+        this.cm = new LocalConnectionMaker();
+    }
+
+    //constructor overloading
+    public UserDao(ConnectionMaker cm) {
+        this.cm = cm;
+    }
 
     public void add(User user) throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+//        ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String insertQuery = "INSERT INTO user(id, name, password) VALUES(?,?,?);";
@@ -27,7 +35,7 @@ public class UserDao {
     }
 
     public User get(String id) throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+//        ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String selectQuery = "SELECT * from user WHERE id=?;";
@@ -45,7 +53,7 @@ public class UserDao {
     }
 
     public List<User> getAll() throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+//        ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String selectQuery = "SELECT * from user WHERE;";

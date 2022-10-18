@@ -1,6 +1,5 @@
 package com.dbexercise.Dao;
 
-import com.dbexercise.ConnectionMaker;
 import com.dbexercise.domain.User;
 
 import java.sql.*;
