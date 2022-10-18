@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    public void add() throws SQLException, ClassNotFoundException {
+    public void add(User user) throws SQLException, ClassNotFoundException {
         ConnectionMaker cm = new ConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String insertQuery = "INSERT INTO user(id, name, password) VALUES(?,?,?);";
         PreparedStatement ps = conn.prepareStatement(insertQuery);
-        ps.setString(1,"2");
-        ps.setString(2, "dongyeon2");
-        ps.setString(3, "1234");
+        ps.setString(1,user.getId());
+        ps.setString(2, user.getName());
+        ps.setString(3, user.getPassword());
 
         ps.executeUpdate(); // insert 는 테이블에 영향을 주기 때문에 Update
         ps.close();
@@ -67,6 +67,6 @@ public class UserDao {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserDao userDao = new UserDao();
-        userDao.add();
+        userDao.add(new User("3", "toby", "1234"));
     }
 }
