@@ -1,14 +1,15 @@
-package com.dbexercise;
+package com.dbexercise.Dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class ConnectionMaker {
-    public Connection makeConnection() throws ClassNotFoundException, SQLException {
+public class LocalConnectionMaker implements ConnectionMaker{
+    @Override
+    public Connection makeConnection() throws SQLException, ClassNotFoundException {
         Map<String, String> env = System.getenv();
-        String dbHost = env.get("DB_HOST");
+        String dbHost = "jdbc:mysql://127.0.0.1:3306/likelion";
         String dbUser = env.get("DB_USER");
         String dbPassword = env.get("DB_PASSWORD");
 
