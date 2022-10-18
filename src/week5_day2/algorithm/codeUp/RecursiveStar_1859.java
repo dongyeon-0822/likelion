@@ -1,11 +1,11 @@
-package week5_day2.algorithm;
+package week5_day2.algorithm.codeUp;
 
 import java.util.Scanner;
 
-public class RecursiveStar {
+public class RecursiveStar_1859 {
     private int height;
 
-    public RecursiveStar(int height) {
+    public RecursiveStar_1859(int height) {
         this.height = height;
     }
     public void printLine(int n) {
@@ -27,7 +27,7 @@ public class RecursiveStar {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-        RecursiveStar rs = new RecursiveStar(n);
+        RecursiveStar_1859 rs = new RecursiveStar_1859(n);
         rs.printStar(n);
     }
 }
