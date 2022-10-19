@@ -10,7 +10,7 @@ public abstract class UserDaoAbstract {
     public abstract Connection makeConnection() throws SQLException, ClassNotFoundException;
 
     public void add(User user) throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+        ConnectionMaker cm = new LocalConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String insertQuery = "INSERT INTO user(id, name, password) VALUES(?,?,?);";
@@ -26,7 +26,7 @@ public abstract class UserDaoAbstract {
     }
 
     public User get(String id) throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+        ConnectionMaker cm = new LocalConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String selectQuery = "SELECT * from user WHERE id=?;";
@@ -44,7 +44,7 @@ public abstract class UserDaoAbstract {
     }
 
     public List<User> getAll() throws SQLException, ClassNotFoundException {
-        ConnectionMaker cm = new ConnectionMaker();
+        ConnectionMaker cm = new LocalConnectionMaker();
         Connection conn = cm.makeConnection();
 
         String selectQuery = "SELECT * from user WHERE;";
