@@ -12,4 +12,9 @@ class Stack01Test {
         stack01.push(1);
         Assertions.assertEquals(1,stack01.getArr()[0]);
     }
+
+    public static void main(String[] args) {
+        Stack01Test stack01Test = new Stack01Test();
+        stack01Test.pushTest();
+    }
 }
