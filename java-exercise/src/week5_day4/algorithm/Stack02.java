@@ -1,5 +1,7 @@
 package week5_day4.algorithm;
 
+import java.util.EmptyStackException;
+
 public class Stack02 {
     private int[] arr = new int[10000];
     private int top = -1;
@@ -21,7 +23,7 @@ public class Stack02 {
 
     public int pop() {
         if (isEmpty()) {
-            return -1;
+            throw new EmptyStackException();
         }
         return arr[top--];
     }
