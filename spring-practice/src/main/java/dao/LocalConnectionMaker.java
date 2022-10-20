@@ -9,7 +9,7 @@ public class LocalConnectionMaker implements ConnectionMaker{
     @Override
     public Connection makeConnection() throws SQLException, ClassNotFoundException {
         Map<String, String> env = System.getenv();
-        String dbHost = env.get("jdbc:mysql://127.0.0.1:3306/likelion");
+        String dbHost = "jdbc:mysql://127.0.0.1:3306/likelion";
         String dbUser = env.get("DB_USER");
         String dbPassword = env.get("DB_PASSWORD");
 
