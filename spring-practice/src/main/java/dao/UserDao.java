@@ -52,10 +52,34 @@ public class UserDao {
 
         return user;
     }
-    public void deleteAll() throws SQLException, ClassNotFoundException {
-        Connection conn = c.makeConnection();
-        PreparedStatement ps = conn.prepareStatement("DELETE from user;");
-        ps.executeUpdate();
+    public void deleteAll() throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = c.makeConnection();
+            ps = conn.prepareStatement("DELETE from user;");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (c != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
         ps.close();
         conn.close();
     }
