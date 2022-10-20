@@ -32,10 +32,20 @@ class Stack02Test {
         });
     }
 
+    @Test
+    void peekTest() {
+        assertThrows(EmptyStackException.class,()->{
+            stack02.peek();
+        });
+        stack02.push(1);
+        assertEquals(1, stack02.peek());
+    }
+
     public static void main(String[] args) {
         Stack02Test stack02Test = new Stack02Test();
         stack02Test.pushTest();
         stack02Test.popTest();
         stack02Test.isEmptyTest();
+        stack02Test.peekTest();
     }
 }

@@ -31,6 +31,12 @@ public class Stack02 {
     public boolean isEmpty() {
         return (top == -1);
     }
+    public int peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return arr[top];
+    }
 
     public boolean isFull() {
         return (top == arr.length-1);
