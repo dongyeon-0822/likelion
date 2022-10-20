@@ -20,10 +20,15 @@ class Stack02Test {
         assertEquals(2,stack02.pop());
     }
 
+    @Test
+    void isEmptyTest() {
+        assertFalse(stack02.isEmpty());
+    }
+
     public static void main(String[] args) {
         Stack02Test stack02Test = new Stack02Test();
         stack02Test.pushTest();
         stack02Test.popTest();
+        stack02Test.isEmptyTest();
     }
-
 }
