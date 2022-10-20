@@ -1,6 +1,7 @@
 package dao;
 
 import domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,13 +39,17 @@ public class UserDao {
         PreparedStatement ps = conn.prepareStatement(selectQuery);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
-        rs.next();
-        User user = new User(rs.getString(1), rs.getString(2),rs.getString(3));
-
+        User user = null;
+        if (rs.next()) {
+            user = new User(rs.getString(1), rs.getString(2),rs.getString(3));
+        }
         rs.close();
         ps.close();
         conn.close();
         System.out.println("SELECT 성공");
+
+        if (user == null) throw new EmptyResultDataAccessException(1);
+
         return user;
     }
     public void deleteAll() throws SQLException, ClassNotFoundException {
