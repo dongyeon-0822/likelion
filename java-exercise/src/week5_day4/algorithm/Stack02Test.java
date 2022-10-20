@@ -3,6 +3,8 @@ package week5_day4.algorithm;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.EmptyStackException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class Stack02Test {
@@ -18,11 +20,16 @@ class Stack02Test {
     @Test
     void popTest() {
         assertEquals(2,stack02.pop());
+        assertEquals(1,stack02.pop());
     }
 
     @Test
     void isEmptyTest() {
-        assertFalse(stack02.isEmpty());
+        //assertFalse(stack02.isEmpty());
+        assertTrue(stack02.isEmpty());
+        assertThrows(EmptyStackException.class,()->{
+            stack02.pop();
+        });
     }
 
     public static void main(String[] args) {
