@@ -29,3 +29,6 @@ bin/
 .DS_Store
 .idea/
 *.iml
+out/
+.build/
+build/
