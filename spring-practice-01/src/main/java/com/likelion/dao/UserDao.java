@@ -18,16 +18,19 @@ public class UserDao {
     }
 
     public void add(User user) {
-        Map<String, String> env = System.getenv();
         try {
             // DB접속 (ex sql workbeanch실행)
             Connection c = cm.makeConnection();
 
             // Query문 작성
             PreparedStatement pstmt = c.prepareStatement("INSERT INTO user(id, name, password) VALUES(?,?,?);");
-            pstmt.setString(1, user.getId());
-            pstmt.setString(2, user.getName());
-            pstmt.setString(3, user.getPassword());
+            try {
+                pstmt.setString(1, user.getId());
+                pstmt.setString(2, user.getName());
+                pstmt.setString(3, user.getPassword());
+            } catch (NullPointerException e) {
+                throw new RuntimeException(e);
+            }
 
             // Query문 실행
             pstmt.executeUpdate();
