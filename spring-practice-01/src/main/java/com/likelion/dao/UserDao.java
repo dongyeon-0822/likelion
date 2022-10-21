@@ -23,7 +23,7 @@ public class UserDao {
             Connection c = cm.makeConnection();
 
             // Query문 작성
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO user(id, name, password) VALUES(?,?,?);");
+            PreparedStatement pstmt = new AddStrategy().makePreparedStatement(c);
             try {
                 pstmt.setString(1, user.getId());
                 pstmt.setString(2, user.getName());
@@ -73,12 +73,12 @@ public class UserDao {
         }
     }
 
-    public void deleteAll() throws SQLException {
+    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = cm.makeConnection();
-            ps = new DeleteAllStrategy().makePreparedStatement(conn);
+            ps = stmt.makePreparedStatement(conn);
             ps.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -98,6 +98,12 @@ public class UserDao {
                 }
             }
         }
+    }
+
+    public void deleteAll() throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        jdbcContextWithStatementStrategy(new DeleteAllStrategy());
     }
 
     public int getCount() {
