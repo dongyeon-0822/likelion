@@ -18,11 +18,8 @@ public class UserDao {
     }
 
     public void add(User user) throws SQLException, ClassNotFoundException {
-        Connection c = cm.makeConnection();
-        PreparedStatement pstmt = new AddStrategy(user).makePreparedStatement(c);
-        pstmt.executeUpdate();
-        pstmt.close();
-        c.close();
+        AddStrategy addStrategy = new AddStrategy(user);
+        jdbcContextWithStatementStrategy(addStrategy);
     }
 
     public User findById(String id) {
