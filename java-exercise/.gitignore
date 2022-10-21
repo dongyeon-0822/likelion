@@ -31,4 +31,4 @@ bin/
 *.iml
 out/
 .build/
-build/
+*/build/
