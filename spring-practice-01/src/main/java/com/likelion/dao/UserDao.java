@@ -17,30 +17,12 @@ public class UserDao {
         this.cm = cm;
     }
 
-    public void add(User user) {
-        try {
-            // DB접속 (ex sql workbeanch실행)
-            Connection c = cm.makeConnection();
-
-            // Query문 작성
-            PreparedStatement pstmt = new AddStrategy().makePreparedStatement(c);
-            try {
-                pstmt.setString(1, user.getId());
-                pstmt.setString(2, user.getName());
-                pstmt.setString(3, user.getPassword());
-            } catch (NullPointerException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Query문 실행
-            pstmt.executeUpdate();
-
-            pstmt.close();
-            c.close();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void add(User user) throws SQLException, ClassNotFoundException {
+        Connection c = cm.makeConnection();
+        PreparedStatement pstmt = new AddStrategy(user).makePreparedStatement(c);
+        pstmt.executeUpdate();
+        pstmt.close();
+        c.close();
     }
 
     public User findById(String id) {
