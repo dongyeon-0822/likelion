@@ -11,4 +11,8 @@ public class UserDaoFactory {
     public UserDao awsUserDao() {
         return new UserDao(new AwsConnectionMaker());
     }
+    @Bean
+    public UserDao localUserDao() {
+        return new UserDao(new LocalConnectionMaker());
+    }
 }

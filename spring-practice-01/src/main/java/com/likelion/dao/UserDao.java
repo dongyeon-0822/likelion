@@ -24,7 +24,7 @@ public class UserDao {
             Connection c = cm.makeConnection();
 
             // Query문 작성
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO users(id, name, password) VALUES(?,?,?);");
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO user(id, name, password) VALUES(?,?,?);");
             pstmt.setString(1, user.getId());
             pstmt.setString(2, user.getName());
             pstmt.setString(3, user.getPassword());
@@ -35,7 +35,7 @@ public class UserDao {
             pstmt.close();
             c.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -48,7 +48,7 @@ public class UserDao {
             c = cm.makeConnection();
 
             // Query문 작성
-            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM user WHERE id = ?");
             pstmt.setString(1, id);
 
             // Query문 실행
@@ -65,13 +65,74 @@ public class UserDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static void main(String[] args) {
-        UserDao userDao = new UserDao();
-//        userDao.add();
-        User user = userDao.findById("6");
-        System.out.println(user.getName());
+    public void deleteAll() throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = cm.makeConnection();
+            ps = conn.prepareStatement("DELETE from user;");
+            ps.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    public int getCount() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            conn = cm.makeConnection();
+            ps = conn.prepareStatement("SELECT count(*) from user;");
+            rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+            return count;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }
