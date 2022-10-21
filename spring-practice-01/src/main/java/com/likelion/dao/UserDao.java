@@ -78,7 +78,7 @@ public class UserDao {
         PreparedStatement ps = null;
         try {
             conn = cm.makeConnection();
-            ps = conn.prepareStatement("DELETE from user;");
+            ps = new DeleteAllStrategy().makePreparedStatement(conn);
             ps.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
