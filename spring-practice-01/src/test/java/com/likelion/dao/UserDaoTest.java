@@ -36,7 +36,8 @@ class UserDaoTest {
     }
 
     @Test
-    void addAndGet() {
+    void addAndGet() throws SQLException, ClassNotFoundException {
+        userDao.deleteAll();
         userDao.add(user1);
         User user = userDao.findById(user1.getId());
 
