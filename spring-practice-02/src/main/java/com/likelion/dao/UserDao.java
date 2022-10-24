@@ -3,32 +3,32 @@ package com.likelion.dao;
 
 import com.likelion.domain.User;
 
+import javax.sql.DataSource;
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.Map;
 
 public class UserDao {
+    private DataSource dataSource;
 
     private ConnectionMaker cm;
     public UserDao() {
         this.cm = new AwsConnectionMaker();
     }
-    public UserDao(ConnectionMaker cm) {
-        this.cm = cm;
+    public UserDao(DataSource ds) {
+        this.dataSource = ds;
     }
 
     public void jdbcContextWithStatementStrategy(StatementStrategy stmt) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
-            conn = cm.makeConnection();
+            conn = dataSource.getConnection();
             ps = stmt.makePreparedStatement(conn);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }finally {
+        } finally {
             if (ps != null) {
                 try {
                     ps.close();
