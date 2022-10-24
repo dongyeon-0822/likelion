@@ -2,67 +2,48 @@ package com.likelion.dao;
 
 
 import com.likelion.domain.User;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.List;
 
 public class UserDao {
-    //private ConnectionMaker cm;
-    private final DataSource dataSource;
-    private final JdbcContext jdbcContext;
+    private JdbcTemplate jdbcTemplate;
 
-    public UserDao(DataSource dataSource, JdbcContext jdbcContext) {
-        this.dataSource = dataSource;
-        this.jdbcContext = jdbcContext;
-    }
     public UserDao(DataSource dataSource) {
-        this.dataSource = dataSource;
-        this.jdbcContext = new JdbcContext(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+    RowMapper<User> rowMapper = new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User user = new User(rs.getString("id"), rs.getString("name"),
+                    rs.getString("password"));
+            return user;
+        }
+    };
 
     public void add(final User user) {
-        AddStrategy addStrategy = new AddStrategy(user);
-        this.jdbcContext.workWithStatementStrategy(new StatementStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-                PreparedStatement ps = c.prepareStatement("INSERT INTO user VALUES (?,?,?);");
-                ps.setString(1,user.getId());
-                ps.setString(2, user.getName());
-                ps.setString(3, user.getPassword());
-                return ps;
-            }
-        });
+        this.jdbcTemplate.update("insert into user(id, name, password) values (?, ?, ?);",
+                user.getId(), user.getName(), user.getPassword());
+    }
+
+    public int getCount() {
+        return this.jdbcTemplate.queryForObject("select count(*) from users;", Integer.class);
     }
 
     public User findById(String id) {
-        Connection c;
-        try {
-            // DB접속 (ex sql workbeanch실행)
-            c = dataSource.getConnection();
-
-            // Query문 작성
-            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM users WHERE id = ?");
-            pstmt.setString(1, id);
-
-            // Query문 실행
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            User user = new User(rs.getString("id"), rs.getString("name"),
-                    rs.getString("password"));
-
-            rs.close();
-            pstmt.close();
-            c.close();
-
-            return user;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        String sql = "Select * from user where id = ?";
+        return this.jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
 
+    public List<User> getAll() {
+        return this.jdbcTemplate.query("select * from order by id", rowMapper);
+    }
 
     public void deleteAll() {
-        this.jdbcContext.executeSql("Delete from user");
+        this.jdbcTemplate.update("Delete from user");
     }
 }
