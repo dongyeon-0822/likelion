@@ -4,50 +4,25 @@ package com.likelion.dao;
 import com.likelion.domain.User;
 
 import javax.sql.DataSource;
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
-import java.util.Map;
 
 public class UserDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
+    private final JdbcContext jdbcContext;
 
     private ConnectionMaker cm;
-    public UserDao() {
-        this.cm = new AwsConnectionMaker();
+    public UserDao(DataSource dataSource, JdbcContext jdbcContext) {
+        this.dataSource = dataSource;
+        this.jdbcContext = jdbcContext;
     }
-    public UserDao(DataSource ds) {
-        this.dataSource = ds;
+    public UserDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcContext = new JdbcContext(dataSource);
     }
 
-    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            conn = dataSource.getConnection();
-            ps = stmt.makePreparedStatement(conn);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    }
     public void add(final User user) {
         AddStrategy addStrategy = new AddStrategy(user);
-        jdbcContextWithStatementStrategy(new StatementStrategy() {
+        jdbcContext.workWithStatementStrategy(new StatementStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
                 PreparedStatement ps = c.prepareStatement("INSERT INTO user VALUES (?,?,?);");
@@ -89,7 +64,7 @@ public class UserDao {
     }
 
     public void deleteAll() {
-        jdbcContextWithStatementStrategy(new StatementStrategy() {
+        jdbcContext.workWithStatementStrategy(new StatementStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
                 return c.prepareStatement("DELETE from user");
