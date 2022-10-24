@@ -7,10 +7,10 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDao {
+    //private ConnectionMaker cm;
     private final DataSource dataSource;
     private final JdbcContext jdbcContext;
 
-    private ConnectionMaker cm;
     public UserDao(DataSource dataSource, JdbcContext jdbcContext) {
         this.dataSource = dataSource;
         this.jdbcContext = jdbcContext;
@@ -22,7 +22,7 @@ public class UserDao {
 
     public void add(final User user) {
         AddStrategy addStrategy = new AddStrategy(user);
-        jdbcContext.workWithStatementStrategy(new StatementStrategy() {
+        this.jdbcContext.workWithStatementStrategy(new StatementStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
                 PreparedStatement ps = c.prepareStatement("INSERT INTO user VALUES (?,?,?);");
@@ -38,7 +38,7 @@ public class UserDao {
         Connection c;
         try {
             // DB접속 (ex sql workbeanch실행)
-            c = cm.makeConnection();
+            c = dataSource.getConnection();
 
             // Query문 작성
             PreparedStatement pstmt = c.prepareStatement("SELECT * FROM users WHERE id = ?");
@@ -58,17 +58,11 @@ public class UserDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
+
     public void deleteAll() {
-        jdbcContext.workWithStatementStrategy(new StatementStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-                return c.prepareStatement("DELETE from user");
-            }
-        });
+        this.jdbcContext.executeSql("Delete from user");
     }
 }
