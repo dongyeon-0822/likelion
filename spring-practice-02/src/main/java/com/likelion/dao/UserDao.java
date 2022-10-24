@@ -79,7 +79,13 @@ public class UserDao {
         }
     }
     public void deleteAll() {
-        DeleteStrategy deleteStrategy = new DeleteStrategy();
+
+        StatementStrategy deleteStrategy = new StatementStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+                return c.prepareStatement("DELETE from user");
+            }
+        };
         jdbcContextWithStatementStrategy(deleteStrategy);
     }
 }
