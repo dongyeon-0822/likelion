@@ -28,29 +28,31 @@ public class SecretMap {
         }
         return String.format("%" + size + "s", binary).replaceAll(" ", "0");
     }
+//    public String[] solution(int n, int[] arr1, int[] arr2) {
+//        String[] answer = {};
+//        List<String> tmp_arr = new ArrayList<>();
+//        for (int i = 0; i < arr1.length; i++) {
+//            String tmp1 = toBinaryFormat(n, arr1[i]);
+//            String tmp2 = toBinaryFormat(n, arr2[i]);
+//            String tmp = "";
+//            for (int j = 0; j < n; j++) {
+//                if (tmp1.charAt(j)=='1' || tmp2.charAt(j)=='1')
+//                    tmp+="#";
+//                else
+//                    tmp+=" ";
+//            }
+//            tmp_arr.add(tmp);
+//        }
+//        answer = tmp_arr.toArray(new String[tmp_arr.size()]);
+//        return answer;
+//    }
     public String[] solution(int n, int[] arr1, int[] arr2) {
-        String[] answer = {};
-        List<String> tmp_arr = new ArrayList<>();
-        for (int i = 0; i < arr1.length; i++) {
-            String s1 = Integer.toBinaryString(arr1[i]);
-            String s2 = Integer.toBinaryString(arr2[i]);
-            String tmp1 = "", tmp2 = "";
-            for (int j = 0; j < n-s1.length(); j++)
-                tmp1 += "0";
-            for (int j = 0; j < n-s2.length(); j++)
-                tmp2 += "0";
-            tmp1+=s1;
-            tmp2+=s2;
-            String tmp = "";
-            for (int j = 0; j < n; j++) {
-                if (tmp1.charAt(j)=='1' || tmp2.charAt(j)=='1')
-                    tmp+="#";
-                else
-                    tmp+=" ";
-            }
-            tmp_arr.add(tmp);
+        var answer = new String[n];
+        for (int i = 0; i < n; i++) {
+            answer[i] = Integer.toBinaryString(arr1[i] | arr2[i])
+                    .replace("1","#").replace("0", " ");
+            answer[i] = " ".repeat(n - answer[i].length()) + answer[i];
         }
-        answer = tmp_arr.toArray(new String[tmp_arr.size()]);
         return answer;
     }
 
