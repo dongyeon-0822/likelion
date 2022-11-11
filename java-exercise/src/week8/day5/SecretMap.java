@@ -18,7 +18,7 @@ public class SecretMap {
     }
     public String[] solution(int n, int[] arr1, int[] arr2) {
         String[] answer = {};
-
+        List<String> tmp_arr = new ArrayList<>();
         for (int i = 0; i < arr1.length; i++) {
             String s1 = Integer.toBinaryString(arr1[i]);
             String s2 = Integer.toBinaryString(arr2[i]);
@@ -29,18 +29,21 @@ public class SecretMap {
                 tmp2 += "0";
             tmp1+=s1;
             tmp2+=s2;
-            for (int j = 0; j <n; j++) {
-//                if (Integer.parseInt(tmp1.charAt(j)) || tmp2.charAt(j)) {
-//
-//                }
+            String tmp = "";
+            for (int j = 0; j < n; j++) {
+                if (tmp1.charAt(j)=='1' || tmp2.charAt(j)=='1')
+                    tmp+="#";
+                else
+                    tmp+=" ";
             }
-
+            tmp_arr.add(tmp);
         }
+        answer = tmp_arr.toArray(new String[tmp_arr.size()]);
         return answer;
     }
 
     public static void main(String[] args) {
         SecretMap secretMap = new SecretMap();
-        secretMap.solution(3, new int[]{1, 2, 3}, new int[]{4, 5, 6});
+        secretMap.solution(5, new int[]{9, 20, 28, 18, 11}, new int[]{30, 1, 21, 17, 28});
     }
 }
