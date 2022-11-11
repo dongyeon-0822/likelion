@@ -16,6 +16,18 @@ public class SecretMap {
         }
         return binary;
     }
+    public String toBinaryFormat(int size, int n) {
+        String binary = "";
+        List<Integer> binary_rev = new ArrayList<>();
+        while (n != 0) {
+            binary_rev.add(n%2);
+            n/=2;
+        }
+        for (int i = binary_rev.size()-1; i >=0 ; i--) {
+            binary += Integer.toString(binary_rev.get(i));
+        }
+        return String.format("%" + size + "s", binary).replaceAll(" ", "0");
+    }
     public String[] solution(int n, int[] arr1, int[] arr2) {
         String[] answer = {};
         List<String> tmp_arr = new ArrayList<>();
