@@ -5,14 +5,14 @@ public class Programmers_12926 {
         String answer = "";
 
         for (int i = 0; i < s.length(); i++) {
-            int c = (int)s.charAt(i);
+            int c = s.charAt(i);
 
-            if (c == (int) ' ')
+            if (c == ' ')
                 answer+= " ";
-            else if (c >= (int) 'a' && c <= (int) 'z')
-                answer += (char)((c + n - (int)'a')%26+(int)'a');
+            else if (c >= 'a' && c <= 'z')
+                answer += (char)((c + n - 'a')%26+'a');
             else
-                answer += (char)((c + n - (int)'A')%26+(int)'A');
+                answer += (char)((c + n - 'A')%26+'A');
 
         }
         return answer;
