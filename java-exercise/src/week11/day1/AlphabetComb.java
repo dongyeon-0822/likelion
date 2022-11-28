@@ -6,6 +6,12 @@ public class AlphabetComb {
             System.out.println((char)('A'+i));
         }
     }
+    static void printCombRecur(char c) {
+        if (c > 'Z')
+            return;
+        System.out.println(c);
+        printCombRecur((char)(c+1));
+    }
     static void printComb2() {
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
@@ -16,6 +22,7 @@ public class AlphabetComb {
     }
     public static void main(String[] args) {
         //printComb();
-        printComb2();
+        //printComb2();
+        printCombRecur('A');
     }
 }
